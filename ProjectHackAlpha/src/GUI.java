@@ -20,7 +20,7 @@ public class GUI extends JFrame{
     //makes a slider that will control speed with max value of 10 and min of 0
     private JSlider slider = new JSlider(0,10);
     //text field that will control how far the image will rotate in single rotation mode
-    private JTextField text = new JTextField("0");
+    private JLabel label = new JLabel("0");
     //timer that tells the image to rotate
     private Timer timer;
 
@@ -28,35 +28,20 @@ public class GUI extends JFrame{
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                text.setText( Integer.toString( 1000+Integer.parseInt(text.getText())));
+                label.setText( Integer.toString( 1000+Integer.parseInt(label.getText())));
             }
         });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //adds the text button and slider to the rotating image
         setLayout(new GridLayout(1,3));
-        add(text);
+        add(label);
         add(button);
         add(slider);
         timer.start();
         //changes if in continuous rotation or single rotation and changes the text on the button
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               text.setText( Integer.toString( speed+Integer.parseInt(text.getText())));
-            }
-        });
-        //when the user press enter the text box is checked for an integer and saves the value if it is between 1 and 360 otherwise sets the
-        //degrees to 0 then sets the image position to 0 degrees and restarts the timer
-        text.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(isInt(text.getText())){
-                    degrees = Integer.parseInt(text.getText());
-                    if(degrees <= 0 || degrees > 360){
-                        degrees = 360;
-                        text.setText("360");
-                    }
-                    timer.start();
-                }
+               label.setText( Integer.toString( speed+Integer.parseInt(label.getText())));
             }
         });
         slider.addChangeListener(new ChangeListener() {
